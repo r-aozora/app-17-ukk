@@ -1,0 +1,57 @@
+@extends('layouts.auth')
+
+@section('content')
+    <div class="card card-primary">
+        <div class="card-header">
+            <h4>{{ $title }}</h4>
+        </div>
+        <div class="card-body">
+            {{-- Error here --}}
+            <form action="#" method="POST" class="needs-validation" novalidate>
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap</label>
+                    <input id="nama" type="text" class="form-control" name="nama" value="" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" class="form-control" name="email" value="" required>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="password">Password</label>
+                        <input id="password" type="password" class="form-control" name="password" required>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="password_confirmation">Konfirmasi Password</label>
+                        <input id="password_confirmation" type="password" class="form-control" name="password_confirmation">
+                    </div>
+                </div>
+                <div class="form-divider">
+                    Informasi Lainnya
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="username">Username</label>
+                        <input id="username" type="text" class="form-control" name="username" value="" required>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="telepon">Telepon</label>
+                        <input id="telepon" type="text" class="form-control" name="telepon" value="" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="alamat">Alamat</label>
+                    <textarea class="form-control" name="alamat" id="alamat" style="height: 100px" required></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                        Daftar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="mt-5 text-muted text-center">
+        Sudah punya akun? <a href="#">Masuk</a>.
+    </div>
+@endsection
