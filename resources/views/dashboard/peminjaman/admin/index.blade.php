@@ -13,7 +13,7 @@
                 <h1>{{ $title }}</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <a href="{{ route('dashboard') }}">Dashboard</a>
                     </div>
                     <div class="breadcrumb-item">Perpustakaan</div>
                     <div class="breadcrumb-item">{{ $title }}</div>
@@ -44,27 +44,38 @@
                                         </thead>
                                         <tbody>
                                             {{-- Looping Peminjaman --}}
+                                            @foreach ($pinjam as $item)
                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $item->invoice }}</td>
                                                     <td>
-                                                        <a href="#">Username</a>
+                                                        <a href="{{ route('user.show', $item->user->slug) }}">{{ '@' . $item->user->username }}</a>
                                                     </td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td>{{ $item->created_at->format('j-n-Y') }}</td>
+                                                    <td>{{ $item->tgl_pinjam ?? '-' }}</td>
+                                                    <td>{{ $item->tenggat ?? '-' }}</td>
+                                                    <td>{{ $item->tgl_kembali ?? '-' }}</td>
                                                     <td>
-                                                        <div class="badge badge-warning">Dipesan</div>
-                                                        <div class="badge badge-info">Dipinjam</div>
-                                                        <div class="badge badge-success">Dikembalikan</div>
+                                                        @switch($item->status)
+                                                            @case('0')
+                                                                <div class="badge badge-warning">Dipesan</div>
+                                                                @break
+                                                            @case('1')
+                                                                <div class="badge badge-info">Dipinjam</div>
+                                                                @break
+                                                            @case('2')
+                                                                <div class="badge badge-success">Dikembalikan</div>
+                                                                @break
+                                                            @default
+                                                        @endswitch
                                                     </td>
                                                     <td>
-                                                        <a href="#" class="btn btn-sm btn-info" data-toggle="tooltip" title="Lihat Data">
+                                                        <a href="{{ route('peminjaman.show', $item->invoice) }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Lihat Data">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
                                                     </td>
                                                 </tr>
+                                            @endforeach
                                             {{-- End Looping Peminjaman --}}
                                         </tbody>
                                     </table>

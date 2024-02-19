@@ -9,18 +9,18 @@
         <section class="section">
             <div class="section-header">
                 <div class="section-header-back">
-                    <a href="#" class="btn btn-icon">
+                    <a href="{{ route('pinjam.index') }}" class="btn btn-icon">
                         <i class="fas fa-arrow-left"></i>
                     </a>
                 </div>
                 <h1>{{ $title }}</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <a href="{{ route('dashboard') }}">Dashboard</a>
                     </div>
                     <div class="breadcrumb-item">Perpustakaan</div>
                     <div class="breadcrumb-item active">
-                        <a href="#">Peminjaman</a>
+                        <a href="{{ route('pinjam.index') }}">Peminjaman</a>
                     </div>
                     <div class="breadcrumb-item">{{ $title }}</div>
                 </div>
@@ -32,19 +32,29 @@
                             <div class="card-header">
                                 <h4>{{ $title }}</h4>
                             </div>
-                            <form action="#" method="POST" class="needs-validation" novalidate>
+                            <form action="{{ route('pinjam.store') }}" method="POST" class="needs-validation" novalidate>
+                                @csrf
                                 <div class="card-body">
                                     {{-- Error Here --}}
+                                    @if ($errors->any())
+                                        @foreach ($errors->all() as $error)
+                                            <div class="alert alert-danger alert-dismissible show fade">{{ $error }}</div>
+                                        @endforeach
+                                    @endif
                                     <div class="row">
                                         <div class="form-group col-lg-6">
                                             <label for="peminjam">Nama Peminjam</label>
-                                            <input type="text" name="peminjam" id="peminjam" class="form-control" value="" required readonly>
+                                            <input type="text" name="peminjam" id="peminjam" class="form-control" value="{{ Auth::user()->name }}" required readonly>
                                         </div>
                                         <div class="form-group col-12">
                                             <label for="buku">Buku yang dipinjam</label>
                                             <select name="buku[]" id="buku" class="form-control select2" multiple>
                                                 {{-- Looping Koleksi --}}
-                                                <option value="">Buku</option>
+                                                @forelse ($koleksi as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->judul }}</option>
+                                                @empty
+                                                    <option disabled>Belum ada buku</option>
+                                                @endforelse
                                                 {{-- End Looping Koleksi --}}
                                             </select>
                                         </div>

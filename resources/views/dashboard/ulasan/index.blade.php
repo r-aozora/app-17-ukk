@@ -41,14 +41,15 @@
                                         </thead>
                                         <tbody>
                                             {{-- Looping Ulasan --}}
+                                            @foreach ($ulasan as $item)
                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>5 <i class="fas fa-star"></i></td>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $item->ulasan }}</td>
+                                                    <td>{{ $item->rating }} <i class="fas fa-star"></i></td>
                                                     <td>
-                                                        <a href="#">Nama Buku</a>
+                                                        <a href="{{ route('pustaka.show', $item->buku->slug) }}">{{ $item->buku->judul }}</a>
                                                     </td>
-                                                    <td></td>
+                                                    <td>{{ $item->created_at->format('j-n-Y') }}</td>
                                                     <td>
                                                         <a href="#" class="btn btn-sm btn-info" data-toggle="tooltip" title="Lihat Ulasan">
                                                             <i class="fas fa-eye"></i>
@@ -58,6 +59,7 @@
                                                         </a>
                                                     </td>
                                                 </tr>
+                                            @endforeach
                                             {{-- End Looping Ulasan --}}
                                         </tbody>
                                     </table>

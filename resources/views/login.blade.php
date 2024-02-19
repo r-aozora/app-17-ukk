@@ -10,7 +10,7 @@
                 @csrf
                 <div class="form-group">
                     <label for="user">Email atau Username</label>
-                    <input id="user" type="user" class="form-control" name="email" tabindex="1" value="{{ old('email') }}" required autofocus>
+                    <input id="user" type="user" class="form-control" name="user" tabindex="1" value="{{ old('user') }}" required autofocus>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>

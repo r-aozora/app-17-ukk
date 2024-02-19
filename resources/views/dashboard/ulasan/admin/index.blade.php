@@ -13,7 +13,7 @@
                 <h1>{{ $title }}</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <a href="{{ route('dashboard') }}">Dashboard</a>
                     </div>
                     <div class="breadcrumb-item">Perpustakaan</div>
                     <div class="breadcrumb-item">{{ $title }}</div>
@@ -42,26 +42,28 @@
                                         </thead>
                                         <tbody>
                                             {{-- Looping Ulasan --}}
+                                            @foreach ($ulasan as $item)
                                                 <tr>
-                                                    <td></td>
-                                                    <td>Ulasan</td>
-                                                    <td>5 <i class="fas fa-star"></i></td>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $item->ulasan }}</td>
+                                                    <td>{{ $item->rating }} <i class="fas fa-star"></i></td>
                                                     <td>
-                                                        <a href="#">Username</a>
+                                                        <a href="{{ route('user.show', $item->user->slug) }}">{{ '@' . $item->user->name }}</a>
                                                     </td>
                                                     <td>
-                                                        <a href="#">Nama Buku</a>
+                                                        <a href="{{ route('buku.show', $item->buku->slug) }}">{{ $item->buku->judul }}</a>
                                                     </td>
-                                                    <td></td>
+                                                    <td>{{ $item->created_at->format('j-n-Y') }}</td>
                                                     <td>
-                                                        <a href="#" class="btn btn-sm btn-info" data-toggle="tooltip" title="Lihat Ulasan">
+                                                        <a href="{{ route('ulasan.show', $item->id) }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Lihat Ulasan">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
-                                                        <a href="#" class="btn btn-sm btn-danger" data-confirm-delete="true" data-toggle="tooltip" title="Hapus Ulasan">
+                                                        <a href="{{ route('ulasan.destroy', $item->id) }}" class="btn btn-sm btn-danger" data-confirm-delete="true" data-toggle="tooltip" title="Hapus Ulasan">
                                                             <i class="fas fa-trash" onclick="event.preventDefault(); this.closest('a').click();"></i>
                                                         </a>
                                                     </td>
                                                 </tr>
+                                            @endforeach
                                             {{-- End Looping Ulasan --}}
                                         </tbody>
                                     </table>

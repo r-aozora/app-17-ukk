@@ -47,6 +47,8 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        toast('Selamat Datang!', 'success');
+
         return redirect(RouteServiceProvider::HOME);
     }
 }

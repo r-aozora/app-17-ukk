@@ -3,9 +3,13 @@
 use App\Http\Controllers\Dashboard\BukuController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\KategoriController;
+use App\Http\Controllers\Dashboard\KelolaPeminjamanController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\KoleksiController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PustakaController;
 use App\Http\Controllers\UlasanController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,12 +38,28 @@ Route::middleware('auth')->group(function () {
                 Route::resource('kategori', KategoriController::class);
 
                 Route::resource('buku', BukuController::class);
+
+                Route::resource('peminjaman', KelolaPeminjamanController::class);
             });
         });
 
         Route::middleware('role:admin')->group(function () {
             Route::prefix('pengaturan')->group(function () {
                 Route::resource('user', UserController::class);
+            });
+        });
+
+        Route::middleware('role:pembaca')->group(function () {
+            Route::prefix('perpustakaan')->group(function () {
+                Route::get('pustaka', [PustakaController::class, 'index'])
+                    ->name('pustaka.index');
+
+                Route::get('pustaka/{buku}', [PustakaController::class, 'show'])
+                    ->name('pustaka.show');
+
+                Route::resource('koleksi', KoleksiController::class);
+
+                Route::resource('pinjam', PeminjamanController::class);
             });
         });
     });

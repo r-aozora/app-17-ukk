@@ -27,7 +27,7 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->string('gambar')->nullable()->default('/images/buku.png');
             $table->unsignedBigInteger('stok');
-            $table->unsignedBigInteger('pinjam')->nullable();
+            $table->unsignedBigInteger('pinjam')->nullable()->default(0);
             $table->foreignId('kategori_id')->constrained('kategori')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

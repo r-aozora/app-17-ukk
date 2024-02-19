@@ -51,4 +51,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Ulasan::class, 'user_id');
     }
+
+    public function koleksi()
+    {
+        return $this->hasMany(Koleksi::class, 'user_id');
+    }
+
+    public function pinjam()
+    {
+        return $this->hasMany(Peminjaman::class, 'user_id');
+    }
 }

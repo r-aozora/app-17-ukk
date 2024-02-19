@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -18,23 +19,53 @@ class ProfileController extends Controller
     {
         return view('profile.edit', [
             'user' => $request->user(),
+            'title' => 'Profil',
+            'active' => 'profil',
         ]);
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request)
     {
-        $request->user()->fill($request->validated());
+        $request->validate([
+            'nama' => ['required', 'string', 'max:255', 'unique:users,name,'.Auth::user()->id],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.Auth::user()->id],
+            'username' => ['required', 'string', 'max:255', 'unique:users,username,'.Auth::user()->id],
+            'telepon' => ['required', 'string', 'max:255'],
+            'alamat' => ['required', 'string', 'max:255'],
+        ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user = [
+            'name' => $nama = $request->input('nama'),
+            'slug' => $slug = Str::slug($nama),
+            'email' => $request->input('email'),
+            'username' => $request->input('username'),
+            'telepon' => $request->input('telepon'),
+            'alamat' => $request->input('alamat'),
+        ];
+
+        if ($request->hasFile('foto_profil')) {
+            $request->validate([
+                'foto_profil' => ['required', 'file', 'image', 'mimes:jpg,jpeg,png,svg,gif,webp'],
+            ]);
+
+            $file = $request->file('image');
+            $gambar = $slug. '.' . $file->extension();
+            $file->move(public_path('storage/user'), $gambar);
+            $buku['gambar'] = '/storage/user/' . $gambar;
         }
 
-        $request->user()->save();
+        try {
+            User::where('id', $request->user()->id)->update($user);
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+            toast('Profil berhasil diperbaru!i', 'success');
+        } catch (\Throwable $th) {
+            toast('Profil gagal diperbarui.', 'success');
+        }
+
+        return redirect()->back();
     }
 
     /**

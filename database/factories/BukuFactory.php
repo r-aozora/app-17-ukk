@@ -26,7 +26,6 @@ class BukuFactory extends Factory
             'tahun' => $this->faker->year(),
             'deskripsi' => $this->faker->paragraph(),
             'stok' => $this->faker->numberBetween(1, 10),
-            'pinjam' => $this->faker->numberBetween(1, 10),
             'kategori_id' => Kategori::all()->random()->id,
         ];
     }

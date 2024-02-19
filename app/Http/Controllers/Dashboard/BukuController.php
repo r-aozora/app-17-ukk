@@ -79,8 +79,8 @@ class BukuController extends Controller
 
             $file = $request->file('image');
             $gambar = $slug. '.' . $file->extension();
-            $file->move(public_path('images/buku'), $gambar);
-            $buku['gambar'] = '/images/buku/' . $gambar;
+            $file->move(public_path('storage/buku'), $gambar);
+            $buku['gambar'] = '/storage/buku/' . $gambar;
         }
 
         try {
@@ -166,8 +166,8 @@ class BukuController extends Controller
                 File::delete(public_path($buku->gambar));
             }
 
-            $file->move(public_path('images/buku'), $gambar);
-            $updatedBuku['gambar'] = '/images/buku/' . $gambar;
+            $file->move(public_path('storage/buku'), $gambar);
+            $updatedBuku['gambar'] = '/storage/buku/' . $gambar;
         }
 
         try {

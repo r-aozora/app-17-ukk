@@ -81,8 +81,8 @@ class UserController extends Controller
 
             $file = $request->file('image');
             $gambar = $slug. '.' . $file->extension();
-            $file->move(public_path('images/user'), $gambar);
-            $user['foto'] = '/images/user/' . $gambar;
+            $file->move(public_path('storage/user'), $gambar);
+            $user['foto'] = '/storage/user/' . $gambar;
         }
 
         try {
@@ -160,8 +160,8 @@ class UserController extends Controller
                 File::delete(public_path($user->foto));
             }
 
-            $file->move(public_path('images/user'), $gambar);
-            $updatedUser['foto'] = '/images/user/' . $gambar;
+            $file->move(public_path('storage/user'), $gambar);
+            $updatedUser['foto'] = '/storage/user/' . $gambar;
         }
 
         try {

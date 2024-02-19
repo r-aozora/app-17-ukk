@@ -51,6 +51,7 @@ class DatabaseSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'telepon' => '089513886227',
                 'role' => 'pembaca',
+                // 'alamat' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, labore.',
             ],
         ]);
 

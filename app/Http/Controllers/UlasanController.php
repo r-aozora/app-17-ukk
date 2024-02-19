@@ -13,20 +13,24 @@ class UlasanController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->role !== 'pembaca') {
-            $ulasan = Ulasan::where('user_id', Auth::id())
+        if (Auth::user()->role === 'pembaca') {
+            $ulasan = Ulasan::with('buku')
+                ->where('user_id', Auth::id())
                 ->latest()
                 ->get();
 
             $view = 'dashboard.ulasan.index';
             $title = 'Ulasan Kamu';
         } else {
-            $ulasan = Ulasan::latest()
+            $ulasan = Ulasan::with(['user', 'buku'])
+                ->latest()
                 ->get();
 
             $view = 'dashboard.ulasan.admin.index';
-            $title = 'Ulasan';
+            $title = 'Ulasan Buku';
         }
+
+        confirmDelete('Hapus Ulasan?', 'Anda yakin ingin menghapus ulasan?');
 
         return view($view)
             ->with([
@@ -57,7 +61,16 @@ class UlasanController extends Controller
      */
     public function show(Ulasan $ulasan)
     {
-        //
+        $ulasan->load(['user', 'buku']);
+
+        confirmDelete('Hapus Ulasan?', 'Anda yakin ingin menghapus ulasan?');
+
+        return view('dashboard.ulasan.admin.show')
+            ->with([
+                'title' => 'Detail Ulasan',
+                'active' => 'ulasan',
+                'ulasan' => $ulasan,
+            ]);
     }
 
     /**
@@ -81,6 +94,10 @@ class UlasanController extends Controller
      */
     public function destroy(Ulasan $ulasan)
     {
-        //
+        $ulasan->delete();
+
+        toast('Ulasan berhasil dihapus.', 'success');
+
+        return redirect()->route('ulasan.index');
     }
 }
