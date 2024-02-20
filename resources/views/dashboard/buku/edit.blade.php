@@ -65,8 +65,8 @@
                                             <div class="input-group">
                                                 <input type="number" name="stok" id="stok" class="form-control" value="{{ $buku->stok }}" required aria-describedby="stok-help">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">Stok sebelumnya</span>
-                                                    <span class="input-group-text">{{ $buku->stok }}</span>
+                                                    <span class="input-group-text">Stok saat ini</span>
+                                                    <span class="input-group-text">{{ $buku->stok - $buku->pinjam }}</span>
                                                 </div>
                                                 <small id="stok-help" class="form-text text-muted">
                                                     Input stok baru akan otomatis dikurangi dengan jumlah buku dipinjam.

@@ -132,8 +132,8 @@ class PeminjamanController extends Controller
             'peminjam' => ['required', 'string', 'max:255'],
             'buku' => ['required', 'array', 'min:1'],
             'buku.*' => ['required', 'integer', 'exists:buku,id'],
-            'jumlah' => ['required', 'array', 'min:1'],
-            'jumlah.*' => ['required', 'integer', 'min:1'],
+            'jumlah' => ['nullable', 'array', 'min:1'],
+            'jumlah.*' => ['nullable', 'integer', 'min:1'],
         ]);
 
         $user = User::where('name', $request->input('peminjam'))->first();
@@ -145,10 +145,23 @@ class PeminjamanController extends Controller
 
             $pinjam->detail()->delete();
 
+            $jumlahBuku = [];
+
             for ($i = 0; $i < count($request->buku); $i++) {
+                $bukuId = $request->input('buku')[$i];
+                $jumlah = $request->input('jumlah')[$i] ?? 1;
+
+                if (isset($jumlahBuku[$bukuId])) {
+                    $jumlahBuku[$bukuId] += $request->input('jumlah')[$i];
+                } else {
+                    $jumlahBuku[$bukuId] = $request->input('jumlah')[$i] ?? 1;
+                }
+            }
+
+            foreach ($jumlahBuku as $bukuId => $jumlah) {
                 $pinjam->detail()->create([
-                    'buku_id' => $request->buku[$i],
-                    'jumlah' => $request->input('jumlah')[$i] ?? 1,
+                    'buku_id' => $bukuId,
+                    'jumlah' => $jumlah,
                 ]);
             }
 
@@ -156,6 +169,7 @@ class PeminjamanController extends Controller
 
             return redirect()->route('pinjam.show', $pinjam->invoice);
         } catch (\Throwable $th) {
+            dd($th);
             toast('Peminjaman gagal diperbarui.', 'success');
 
             return redirect()->back();

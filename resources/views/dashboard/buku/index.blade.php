@@ -13,7 +13,7 @@
                 <h1>{{ $title }}</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <a href="{{ route('dashboard') }}">Dashboard</a>
                     </div>
                     <div class="breadcrumb-item">Perpustakaan</div>
                     <div class="breadcrumb-item">{{ $title }}</div>
@@ -29,7 +29,7 @@
                                     <a href="{{ route('buku.create') }}" class="btn btn-primary" data-toggle="tooltip" title="Tambah Buku">
                                         <i class="fas fa-plus"></i>
                                     </a>
-                                    <a href="{{ route('kategori.index') }}" class="btn btn-success" data-toggle="tooltip" title="Kategori Buku">
+                                    <a href="{{ route('kategori.index') }}" class="btn btn-primary" data-toggle="tooltip" title="Kategori Buku">
                                         <i class="fas fa-paperclip"></i>
                                     </a>
                                 </div>
@@ -66,8 +66,8 @@
                                                     <td>{{ $item->kategori->kategori }}</td>
                                                     <td>{{ $item->stok - $item->pinjam }}</td>
                                                     <td>
-                                                        <div class="badge badge-{{ $item->pinjam > $item->stok ? 'danger' : 'success' }}">
-                                                            {{ $item->pinjam > $item->stok ? 'Kosong' : 'Tesedia' }}
+                                                        <div class="badge badge-{{ $item->pinjam >= $item->stok ? 'warning' : 'success' }}">
+                                                            {{ $item->pinjam >= $item->stok ? 'Kosong' : 'Tesedia' }}
                                                         </div>
                                                     </td>
                                                     <td>

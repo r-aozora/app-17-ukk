@@ -48,7 +48,7 @@
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
                 <h1 class="display-4"><span>Buku idamanmu</span><br> hanya sejauh <span>sentuhan jari</span></h1>
-                <a href="{{ route('pinjam.index') }}" class="btn btn-primary">Mulai</a>
+                <a href="{{ url('/dashboard/perpustakaan/pinjam') }}" class="btn btn-primary">Mulai</a>
             </div>
         </div>
     </section>

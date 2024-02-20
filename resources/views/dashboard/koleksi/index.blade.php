@@ -40,9 +40,7 @@
                                         @endif
                                     </p>
                                     <div class="article-cta">
-                                        <a href="{{ route('koleksi.destroy', $item->id) }}" class="btn btn-danger" data-confirm-delete="true">
-                                            <i class="fas fa-star"></i> Hapus dari Koleksi
-                                        </a>
+                                        <a href="{{ route('koleksi.destroy', $item->id) }}" class="btn btn-danger" data-confirm-delete="true">Hapus dari Koleksi</a>
                                     </div>
                                 </div>
                             </article>

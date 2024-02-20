@@ -39,7 +39,7 @@
                                         <address>
                                             <strong>Peminjam:</strong><br>
                                             {{ $pinjam->user->name }}<br>
-                                            {{ $pinjam->user->username }}<br>
+                                            {{ '@' . $pinjam->user->username }}<br>
                                             {{ $pinjam->user->alamat }}
                                         </address>
                                     </div>
@@ -127,24 +127,22 @@
                     </div>
                     <hr>
                     <div class="text-md-right">
-                        <div class="float-lg-left mb-lg-0 mb-3">
-                            @if ($pinjam->status === '0')
-                                <form action="{{ route('peminjaman.update', $pinjam->invoice) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('PUT')
-                                    <input type="hidden" name="status" value="1">
-                                    <button type="submit" class="btn btn-info">Dipinjam</button>
-                                </form>
-                            @endif
-                            @if ($pinjam->status === '1')
-                                <form action="{{ route('peminjaman.update', $pinjam->invoice) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('PUT')
-                                    <input type="hidden" name="status" value="2">
-                                    <button type="submit" class="btn btn-success">Dikembalikan</button>
-                                </form>
-                            @endif
-                        </div>
+                        @if ($pinjam->status === '0')
+                            <form action="{{ route('peminjaman.update', $pinjam->invoice) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="status" value="1">
+                                <button type="submit" class="btn btn-info">Dipinjam</button>
+                            </form>
+                        @endif
+                        @if ($pinjam->status === '1')
+                            <form action="{{ route('peminjaman.update', $pinjam->invoice) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="status" value="2">
+                                <button type="submit" class="btn btn-success">Dikembalikan</button>
+                            </form>
+                        @endif
                     </div>
                 </div>
             </div>

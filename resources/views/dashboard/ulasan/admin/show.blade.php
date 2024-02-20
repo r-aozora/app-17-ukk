@@ -38,12 +38,12 @@
                                         <div class="form-group">
                                             <label for="username">Username</label>
                                             <a href="{{ route('user.show', $ulasan->user->slug) }}">
-                                                <input type="text" id="username" class="form-control" value="{{ '@' . $ulasan->user->username }}" readonly>
+                                                <input type="text" id="username" class="form-control" value="{{ '@' . $ulasan->user->username }}" disabled>
                                             </a>
                                         </div>
                                         <div class="form-group">
                                             <label for="name">Nama</label>
-                                            <input type="text" id="name" class="form-control" value="{{ $ulasan->user->name }}" readonly>
+                                            <input type="text" id="name" class="form-control" value="{{ $ulasan->user->name }}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-6">
@@ -51,7 +51,7 @@
                                         <div class="form-group">
                                             <label for="judul">Judul Buku</label>
                                             <a href="{{ route('buku.show', $ulasan->buku->slug) }}">
-                                                <input type="text" id="judul" class="form-control" value="{{ $ulasan->buku->judul }}" readonly>
+                                                <input type="text" id="judul" class="form-control" value="{{ $ulasan->buku->judul }}" disabled>
                                             </a>
                                         </div>
                                         <div class="section-title mt-0">Rating</div>
@@ -66,7 +66,7 @@
                                     <div class="col-12">
                                         <div class="section-title mt-0">Ulasan</div>
                                         <div class="form-group">
-                                            <textarea id="ulasan" class="form-control" style="height: 250px" readonly>{{ $ulasan->ulasan }}</textarea>
+                                            <textarea id="ulasan" class="form-control" style="height: 250px" disabled>{{ $ulasan->ulasan }}</textarea>
                                         </div>
                                     </div>
                                 </div>

@@ -21,7 +21,7 @@ class PustakaController extends Controller
                     ->orWhere('penulis', 'like', "%$search%")
                     ->orWhere('penerbit', 'like', "%$search%")
                     ->orWhereHas('kategori', function ($query) use ($search) {
-                        $query->orWhere('kategori', 'like', "%$search%");
+                        $query->where('kategori', 'like', "%$search%");
                     });
             })
             ->withAvg('ulasan', 'rating')

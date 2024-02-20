@@ -74,25 +74,25 @@
                 <li class="dropdown {{ $active === 'pustaka' ? 'active' : '' }}">
                     <a href="{{ route('pustaka.index') }}" class="nav-link">
                         <i class="fas fa-book"></i>
-                        <span>Pustaka</span>
+                        <span>Pustaka Buku</span>
                     </a>
                 </li>
                 <li class="dropdown {{ $active === 'koleksi' ? 'active' : '' }}">
                     <a href="{{ route('koleksi.index') }}" class="nav-link">
                         <i class="fas fa-bookmark"></i>
-                        <span>Koleksi</span>
+                        <span>Koleksi Kamu</span>
                     </a>
                 </li>
                 <li class="dropdown {{ $active === 'pinjam' ? 'active' : '' }}">
                     <a href="{{ route('pinjam.index') }}" class="nav-link">
                         <i class="fas fa-shopping-cart"></i>
-                        <span>Peminjaman</span>
+                        <span>Peminjaman Kamu</span>
                     </a>
                 </li>
                 <li class="dropdown {{ $active === 'ulasan' ? 'active' : '' }}">
                     <a href="{{ route('ulasan.index') }}" class="nav-link">
                         <i class="fas fa-comment"></i>
-                        <span>Ulasan</span>
+                        <span>Ulasan Kamu</span>
                     </a>
                 </li>
                 <li class="menu-header">Pengaturan</li>

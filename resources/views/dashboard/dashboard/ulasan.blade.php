@@ -5,7 +5,7 @@
                 <div class="card-header">
                     <h4>Ulasan</h4>
                     <div class="card-header-action">
-                        <a href="#" class="btn btn-primary">Lihat semua <i class="fas fa-chevron-right"></i></a>
+                        <a href="{{ route('ulasan.index') }}" class="btn btn-primary">Lihat semua <i class="fas fa-chevron-right"></i></a>
                     </div>
                 </div>
                 <div class="card-body p-0">
@@ -20,7 +20,7 @@
                             {{-- Looping Ulasan --}}
                             @forelse ($data['ulasan'] as $item)
                                 <tr>
-                                    <td>{{ $item->user->name }}</td>
+                                    <td>{{ '@' . $item->user->username }}</td>
                                     <td>{{ $item->buku->judul }}</td>
                                     <td>
                                         <span class="badge badge-{{ $item->rating > 3 ? 'success' : 'warning' }}">

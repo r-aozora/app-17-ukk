@@ -8,7 +8,7 @@
         <section class="section">
             <div class="section-header">
                 <div class="section-header-back">
-                    <a href="#" class="btn btn-icon">
+                    <a href="{{ route('buku.index') }}" class="btn btn-icon">
                         <i class="fas fa-arrow-left"></i>
                     </a>
                 </div>
@@ -19,7 +19,7 @@
                     </div>
                     <div class="breadcrumb-item">Perpustakaan</div>
                     <div class="breadcrumb-item active">
-                        <a href="#">Koleksi Buku</a>
+                        <a href="{{ route('buku.index') }}">Koleksi Buku</a>
                     </div>
                     <div class="breadcrumb-item">{{ $title }}</div>
                 </div>
@@ -35,31 +35,31 @@
                                 <div class="row">
                                     <div class="form-group col-lg-6">
                                         <label for="judul">Judul Buku</label>
-                                        <input type="text" id="judul" class="form-control" value="{{ $buku->judul }}" readonly>
+                                        <input type="text" id="judul" class="form-control" value="{{ $buku->judul }}" disabled>
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label for="penulis">Penulis</label>
-                                        <input type="text" id="penulis" class="form-control" value="{{ $buku->penulis }}" readonly>
+                                        <input type="text" id="penulis" class="form-control" value="{{ $buku->penulis }}" disabled>
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label for="penerbit">Penerbit</label>
-                                        <input type="text" id="penerbit" class="form-control" value="{{ $buku->penerbit }}" readonly>
+                                        <input type="text" id="penerbit" class="form-control" value="{{ $buku->penerbit }}" disabled>
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label for="tahun">Tahun Terbit</label>
-                                        <input type="number" id="tahun" class="form-control" value="{{ $buku->tahun }}" readonly>
+                                        <input type="number" id="tahun" class="form-control" value="{{ $buku->tahun }}" disabled>
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label for="stok">Stok Buku</label>
-                                        <input type="number" id="stok" class="form-control" value="{{ $buku->stok - $buku->pinjam }}" readonly>
+                                        <input type="number" id="stok" class="form-control" value="{{ $buku->stok - $buku->pinjam }}" disabled>
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label for="kategori">Kategori</label>
-                                        <input type="text" id="kategori" class="form-control" value="{{ $buku->kategori->kategori }}" readonly>
+                                        <input type="text" id="kategori" class="form-control" value="{{ $buku->kategori->kategori }}" disabled>
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label for="deskripsi">Deskripsi</label>
-                                        <textarea class="form-control" name="deskripsi" id="deskripsi" style="height: 250px" readonly>{{ $buku->deskripsi }}</textarea>
+                                        <textarea class="form-control" name="deskripsi" id="deskripsi" style="height: 250px" disabled>{{ $buku->deskripsi }}</textarea>
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label>Sampul Buku</label>

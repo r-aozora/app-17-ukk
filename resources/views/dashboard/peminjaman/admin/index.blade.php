@@ -27,9 +27,9 @@
                             <div class="card-header">
                                 <h4>{{ $title }}</h4>
                                 <div class="card-header-action">
-                                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-export">
+                                    <a href="{{ route('peminjaman.export') }}" class="btn btn-sm btn-primary">
                                         <i class="fas fa-file-export"></i> Export
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -90,36 +90,6 @@
                 </div>
             </div>
         </section>
-    </div>
-    <div class="modal fade" tabindex="-1" role="dialog" id="modal-export">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Export Data Peminjaman</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="{{ route('peminjaman.export') }}" method="GET">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="status">Filter Status Peminjaman</label>
-                            <select name="status" id="status" class="form-control selectric">
-                                <option value="all" selected>Semua</option>
-                                <option value="0">Dipesan</option>
-                                <option value="1">Dipinjam</option>
-                                <option value="2">Dikembalikan</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer bg-whitesmoke br">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary">Export</button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
 @endsection
 

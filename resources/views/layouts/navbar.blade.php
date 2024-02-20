@@ -8,7 +8,7 @@
     <ul class="navbar-nav navbar-right">
         <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                <img alt="{{ Auth::user()->name }}" src="{{ asset(Auth::user()->foto) }}" class="rounded-circle mr-1">
+                <img alt="{{ Auth::user()->username }}" src="{{ asset(Auth::user()->foto) }}" class="rounded-circle mr-1">
                 <div class="d-sm-none d-lg-inline-block">{{ Auth::user()->username }}</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">

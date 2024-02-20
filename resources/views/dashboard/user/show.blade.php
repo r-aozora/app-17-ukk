@@ -35,29 +35,29 @@
                                 <div class="row">
                                     <div class="form-group col-lg-6">
                                         <label for="nama">Nama Pengguna</label>
-                                        <input type="text" id="nama" class="form-control" value="{{ $user->name }}" readonly>
+                                        <input type="text" id="nama" class="form-control" value="{{ $user->name }}" disabled>
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label for="username">Username</label>
-                                        <input type="text" id="username" class="form-control" value="{{ $user->username }}" readonly>
+                                        <input type="text" id="username" class="form-control" value="{{ $user->username }}" disabled>
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label for="email">Email</label>
-                                        <input type="email" id="email" class="form-control" value="{{ $user->email }}" readonly>
+                                        <input type="email" id="email" class="form-control" value="{{ $user->email }}" disabled>
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label for="telepon">Telepon</label>
-                                        <input type="text" id="telepon" class="form-control" value="{{ $user->telepon }}" readonly>
+                                        <input type="text" id="telepon" class="form-control" value="{{ $user->telepon }}" disabled>
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label for="role">Role</label>
-                                        <input type="text" id="role" class="form-control" value="{{ ucfirst($user->role) }}" readonly>
+                                        <input type="text" id="role" class="form-control" value="{{ ucfirst($user->role) }}" disabled>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-lg-6">
                                         <label for="alamat">Alamat</label>
-                                        <textarea class="form-control" id="alamat" style="height: 250px" readonly>{{ $user->alamat }}</textarea>
+                                        <textarea class="form-control" id="alamat" style="height: 250px" disabled>{{ $user->alamat }}</textarea>
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label>Foto Profil</label>

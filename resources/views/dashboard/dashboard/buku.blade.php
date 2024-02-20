@@ -25,8 +25,8 @@
                                     <td>{{ $item->kategori->kategori }}</td>
                                     <td>{{ $item->stok - $item->pinjam }}</td>
                                     <td>
-                                        <div class="badge badge-{{ $item->pinjam > $item->stok ? 'danger' : 'success' }}">
-                                            {{ $item->pinjam > $item->stok ? 'Kosong' : 'Tesedia' }}
+                                        <div class="badge badge-{{ $item->pinjam >= $item->stok ? 'warning' : 'success' }}">
+                                            {{ $item->pinjam >= $item->stok ? 'Kosong' : 'Tesedia' }}
                                         </div>
                                     </td>
                                     <td>

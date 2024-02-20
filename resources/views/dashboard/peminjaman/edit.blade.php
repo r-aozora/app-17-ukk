@@ -69,7 +69,9 @@
                                                 <input type="number" name="jumlah[]" id="jumlah" class="form-control" value="{{ $item->jumlah }}">
                                             </div>
                                         @empty
-                                            <div class="alert alert-danger alert-dismissible show fade">Belum ada detail</div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" value="Belum ada detail" disabled></input>
+                                            </div>
                                         @endforelse
                                         {{-- End Looping Detail Peminjaman --}}
                                         <div class="form-group col-12">

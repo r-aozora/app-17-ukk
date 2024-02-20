@@ -44,7 +44,13 @@
                                             @foreach ($ulasan as $item)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $item->ulasan }}</td>
+                                                    <td>
+                                                        @if (strlen($item->ulasan) > 100)
+                                                            {{ substr($item->ulasan, 0, 100) }}...
+                                                        @else
+                                                            {{ $item->ulasan }}
+                                                        @endif
+                                                    </td>
                                                     <td>
                                                         <span class="badge badge-{{ $item->rating > 3 ? 'success' : 'warning' }}">
                                                             {{ $item->rating }} <i class="fas fa-star"></i>

@@ -29,10 +29,10 @@
                                     <a href="{{ route('pinjam.create') }}" class="btn btn-primary" data-toggle="tooltip" title="Buat Peminjaman">
                                         <i class="fas fa-plus"></i>
                                     </a>
-                                    <a href="{{ route('koleksi.index') }}" class="btn btn-success" data-toggle="tooltip" title="Lihat Koleksi">
+                                    <a href="{{ route('koleksi.index') }}" class="btn btn-primary" data-toggle="tooltip" title="Lihat Koleksi">
                                         <i class="fas fa-bookmark"></i>
                                     </a>
-                                    <a href="{{ route('pustaka.index') }}" class="btn btn-success" data-toggle="tooltip" title="Cari Buku">
+                                    <a href="{{ route('pustaka.index') }}" class="btn btn-primary" data-toggle="tooltip" title="Cari Buku">
                                         <i class="fas fa-book"></i>
                                     </a>
                                 </div>
@@ -77,9 +77,7 @@
                                                         @endswitch
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('pinjam.show', $item->invoice) }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Lihat Data">
-                                                            <i class="fas fa-eye"></i>
-                                                        </a>
+                                                        <a href="{{ route('pinjam.show', $item->invoice) }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Lihat Data">Detail</a>
                                                         @if ($item->status == '0')
                                                             <a href="{{ route('pinjam.edit', $item->invoice) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" title="Edit Data">
                                                                 <i class="fas fa-pen"></i>

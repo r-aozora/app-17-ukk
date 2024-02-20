@@ -45,14 +45,20 @@
                                             @foreach ($ulasan as $item)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $item->ulasan }}</td>
+                                                    <td>
+                                                        @if (strlen($item->ulasan) > 100)
+                                                            {{ substr($item->ulasan, 0, 100) }}...
+                                                        @else
+                                                            {{ $item->ulasan }}
+                                                        @endif
+                                                    </td>
                                                     <td>
                                                         <span class="badge badge-{{ $item->rating > 3 ? 'success' : 'warning' }}">
                                                             {{ $item->rating }} <i class="fas fa-star"></i>
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('user.show', $item->user->slug) }}">{{ '@' . $item->user->name }}</a>
+                                                        <a href="{{ route('user.show', $item->user->slug) }}">{{ '@' . $item->user->username }}</a>
                                                     </td>
                                                     <td>
                                                         <a href="{{ route('buku.show', $item->buku->slug) }}">{{ $item->buku->judul }}</a>

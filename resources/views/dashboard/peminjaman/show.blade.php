@@ -39,7 +39,7 @@
                                         <address>
                                             <strong>Peminjam:</strong><br>
                                             {{ $pinjam->user->name }}<br>
-                                            {{ $pinjam->user->username }}<br>
+                                            {{ '@' . $pinjam->user->username }}<br>
                                             {{ $pinjam->user->alamat }}
                                         </address>
                                     </div>
