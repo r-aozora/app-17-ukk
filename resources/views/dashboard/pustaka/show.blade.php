@@ -40,18 +40,20 @@
                                     <div class="col-12 col-lg-4 ticket-items" id="ticket-items">
                                         {{-- Looping Ulasan --}}
                                         @forelse ($pustaka->ulasan as $item)
-                                            <div class="ticket-item">
-                                                <div class="ticket-title">
-                                                    <h4>{{ $item->ulasan }}</h4>
+                                            <a href="#" class="btn-show" data-toggle="modal" data-target="#show-ulasan-{{ $item->id }}">
+                                                <div class="ticket-item">
+                                                    <div class="ticket-title">
+                                                        <h4>{{ $item->ulasan }}</h4>
+                                                    </div>
+                                                    <div class="ticket-desc">
+                                                        <div>{{ $item->user->name }}</div>
+                                                        <div class="bullet"></div>
+                                                        <div>{{ $item->rating }} <i class="fas fa-star"></i></div>
+                                                        <div class="bullet"></div>
+                                                        <div>{{ $item->created_at->format('j-n-Y') }}</div>
+                                                    </div>
                                                 </div>
-                                                <div class="ticket-desc">
-                                                    <div>{{ $item->user->name }}</div>
-                                                    <div class="bullet"></div>
-                                                    <div>{{ $item->rating }} <i class="fas fa-star"></i></div>
-                                                    <div class="bullet"></div>
-                                                    <div>{{ $item->created_at->format('j-n-Y') }}</div>
-                                                </div>
-                                            </div>
+                                            </a>
                                         @empty
                                             <div class="text-center">Belum ada ulasan :(</div>
                                         @endforelse
@@ -76,11 +78,11 @@
                                         </div>
                                         <div class="ticket-description">
                                             <div class="gallery gallery-fw" data-item-height="300">
-                                                <div class="gallery-item" data-image="{{ asset('images/buku.png') }}" data-title=""></div>
+                                                <div class="gallery-item" data-image="{{ asset($pustaka->gambar) }}" data-title="{{ $pustaka->judul }}"></div>
                                             </div>
                                             {{ $pustaka->deskripsi }}
                                             <div class="ticket-divider"></div>
-                                            <div class="ticket-form">\
+                                            <div class="ticket-form">
                                                 @if (!$koleksi)
                                                     <form action="{{ route('koleksi.store') }}" method="POST">
                                                         @csrf
@@ -92,16 +94,17 @@
                                                     </form>
                                                 @endif
                                                 @if ($pinjam)
-                                                    <form action="#" method="POST" novalidate>
-                                                        <div class="section-title">Tulis Ulasan dan Rating Kamu</div>
-                                                        <input type="hidden" name="user_id" value="">
-                                                        <input type="hidden" name="buku_id" value="">
+                                                    <form action="{{ route('ulasan.store') }}" method="POST" novalidate>
+                                                        @csrf
+                                                        <div class="section-title">{{ $ulasan ? 'Edit' : 'Tulis' }} Ulasan dan Rating Kamu</div>
+                                                        <input type="hidden" name="user" value="{{ Auth::id() }}">
+                                                        <input type="hidden" name="buku" value="{{ $pustaka->id }}">
                                                         <div class="form-group">
                                                             <label for="rating">Rating</label>
                                                             <div class="selectgroup selectgroup-pills">
                                                                 @for ($i = 1; $i <= 5; $i++)
                                                                     <label class="selectgroup-item">
-                                                                        <input type="radio" name="rating" value="{{ $i }}" class="selectgroup-input" required>
+                                                                        <input type="radio" name="rating" value="{{ $i }}" class="selectgroup-input" {{ $i == $ulasan?->rating ? 'checked' : '' }} required>
                                                                         <span class="selectgroup-button selectgroup-button-icon">
                                                                             {{ $i }} <i class="fas fa-star"></i>
                                                                         </span>
@@ -111,10 +114,10 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="ulasan">Ulasan</label>
-                                                            <textarea class="form-control" name="ulasan" id="ulasan" style="height: 150px" placeholder="Tulis ulasan kamu..." required></textarea>
+                                                            <textarea class="form-control" name="ulasan" id="ulasan" style="height: 150px" placeholder="Tulis ulasan kamu..." required>{{ $ulasan ? $ulasan->ulasan : old('ulasan') }}</textarea>
                                                         </div>
                                                         <div class="form-group text-right">
-                                                            <button class="btn btn-primary btn-lg">Posting</button>
+                                                            <button type="submit" class="btn btn-primary btn-lg">Posting</button>
                                                         </div>
                                                     </form>
                                                 @endif
@@ -129,6 +132,7 @@
             </div>
         </section>
     </div>
+    @include('dashboard.ulasan.show', ['ulasan' => $pustaka->ulasan])
 @endsection
 
 @section('script')

@@ -40,6 +40,8 @@ Route::middleware('auth')->group(function () {
                 Route::resource('buku', BukuController::class);
 
                 Route::resource('peminjaman', KelolaPeminjamanController::class);
+                Route::get('peminjaman/export/excel', [KelolaPeminjamanController::class, 'export'])
+                    ->name('peminjaman.export');
             });
         });
 

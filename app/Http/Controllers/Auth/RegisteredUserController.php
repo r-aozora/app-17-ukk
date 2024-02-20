@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -32,23 +33,37 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'nama' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'username' => ['required', 'string', 'max:255', 'unique:'.User::class],
+            'telepon' => ['required', 'string', 'max:255'],
+            'alamat' => ['required', 'string'],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        try {
+            $user = User::create([
+                'name' => $nama = $request->input('nama'),
+                'slug' => Str::slug($nama),
+                'email' => $request->input('email'),
+                'password' => Hash::make($request->input('password')),
+                'username' => $request->input('username'),
+                'telepon' => $request->input('telepon'),
+                'alamat' => $request->input('alamat'),
+            ]);
 
-        event(new Registered($user));
+            event(new Registered($user));
 
-        Auth::login($user);
+            Auth::login($user);
 
-        toast('Selamat Datang!', 'success');
+            toast('Selamat Datang!', 'success');
 
-        return redirect(RouteServiceProvider::HOME);
+            return redirect(RouteServiceProvider::HOME);
+        } catch (\Throwable $th) {
+            toast('Register Gagal.', 'error');
+
+            return redirect()->back();
+        }
+
     }
 }

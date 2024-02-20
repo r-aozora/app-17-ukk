@@ -78,7 +78,7 @@
                                             <select name="kategori" id="kategori" class="form-control select2" required>
                                                 {{-- Looping Kategori --}}
                                                 @forelse ($kategori as $item)
-                                                    <option value="{{ $item->id }}" {{ $item->id === $buku->id ? 'selected' : '' }}>{{ $item->kategori }}</option>
+                                                    <option value="{{ $item->id }}" {{ $item->id === $buku->kategori_id ? 'selected' : '' }}>{{ $item->kategori }}</option>
                                                 @empty
                                                     <option disabled>Belum ada kategori</option>
                                                 @endforelse

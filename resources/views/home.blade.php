@@ -22,7 +22,7 @@
     {{-- Navbar Start --}}
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="#">{{ config('app.name') }}</a>
+            <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name') }}</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -31,7 +31,12 @@
                     <a class="nav-link active" href="#home">Home</a>
                     <a class="nav-link active" href="#buku">Buku</a>
                     <a class="nav-link active" href="#tentang">Tentang</a>
-                    <a class="btn btn-primary" href="#">Login</a>
+                    @auth
+                        <a class="btn btn-primary" href="{{ route('dashboard') }}">Dashboard</a>
+                    @endauth
+                    @guest
+                        <a class="btn btn-primary" href="{{ route('login') }}">Login</a>
+                    @endguest
                 </div>
             </div>
         </div>
@@ -42,8 +47,8 @@
     <section id="home">
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <h1 class="display-4" data-aos="fade-up"><span>Buku idamanmu</span><br> hanya sejauh <span>sentuhan jari</span></h1>
-                <a href="#" class="btn btn-primary">Mulai</a>
+                <h1 class="display-4"><span>Buku idamanmu</span><br> hanya sejauh <span>sentuhan jari</span></h1>
+                <a href="{{ route('pinjam.index') }}" class="btn btn-primary">Mulai</a>
             </div>
         </div>
     </section>
@@ -79,47 +84,34 @@
         <section id="buku" class="buku">
             <div class="row">
                 {{-- Looping Here --}}
+                @forelse ($buku as $item)
                     <div class="col-md-6 col-lg-4">
                         <div class="card">
-                            <img src="{{ asset('images/buku.png') }}" alt="" class="card-img-top">
+                            <img src="{{ asset($item->gambar) }}" alt="{{ $item->judul }}" class="card-img-top">
                             <div class="card-body">
-                                <h5 class="card-title">Nama Buku</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Kategori</h6>
-                                <p class="card-text">Deskripsi</p>
-                                <a href="#" class="card-link">Detail</a>
+                                <h5 class="card-title">{{ $item->judul }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ $item->kategori->kategori }}</h6>
+                                <p class="card-text">
+                                    @if (strlen($item->deskripsi) > 100)
+                                        {{ substr($item->deskripsi, 0, 100) }}...
+                                    @else
+                                        {{ $item->deskripsi }}
+                                    @endif
+                                </p>
+                                <a href="{{ route('pustaka.show', $item->slug) }}" class="card-link">Detail</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card">
-                            <img src="{{ asset('images/buku.png') }}" alt="" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">Nama Buku</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Kategori</h6>
-                                <p class="card-text">Deskripsi</p>
-                                <a href="#" class="card-link">Detail</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card">
-                            <img src="{{ asset('images/buku.png') }}" alt="" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">Nama Buku</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Kategori</h6>
-                                <p class="card-text">Deskripsi</p>
-                                <a href="#" class="card-link">Detail</a>
-                            </div>
-                        </div>
-                    </div>
+                @empty
                     <div class="col text-center">
                         <h5>Buku Tidak Tersedia.</h5>
                     </div>
+                @endforelse
                 {{-- End Looping --}}
             </div>
             <div class="row mt-5">
                 <div class="col text-center">
-                    <a href="#" class="btn btn-primary">Lihat Semua</a>
+                    <a href="{{ route('pustaka.index') }}" class="btn btn-primary">Lihat Semua</a>
                 </div>
             </div>
         </section>
@@ -134,7 +126,7 @@
                 <div class="col-lg-5">
                     <h3>Pesan, <span>Pinjam</span>, Baca</h3>
                     <p>{{ config('app.name') }}, tempat terbaik untuk memenuhi kebutuhan bacaan Anda dengan mudah dan praktis.</p>
-                    <a href="#" class="btn btn-primary">Pustaka</a>
+                    <a href="{{ route('pustaka.index') }}" class="btn btn-primary">Pustaka</a>
                 </div>
             </div>
         </section>
@@ -143,7 +135,7 @@
         {{-- Footer --}}
         <div class="row footer">
             <div class="col text-center">
-                <p>{{ date('Y') }} All Right Reserved by Muhamad Citra Hidayat.</p>
+                <p>{{ date('Y') }} All Right Reserved by <a href="https://github.com/r-zozora">Muhamad Citra Hidayat</a>.</p>
             </div>
         </div>
         {{-- Footer End --}}

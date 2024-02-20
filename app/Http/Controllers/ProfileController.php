@@ -51,10 +51,10 @@ class ProfileController extends Controller
                 'foto_profil' => ['required', 'file', 'image', 'mimes:jpg,jpeg,png,svg,gif,webp'],
             ]);
 
-            $file = $request->file('image');
+            $file = $request->file('foto_profil');
             $gambar = $slug. '.' . $file->extension();
             $file->move(public_path('storage/user'), $gambar);
-            $buku['gambar'] = '/storage/user/' . $gambar;
+            $user['foto'] = '/storage/user/' . $gambar;
         }
 
         try {

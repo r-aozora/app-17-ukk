@@ -77,7 +77,7 @@
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="alamat">Alamat</label>
-                                            <textarea class="form-control" name="alamat" id="alamat" style="height: 250px" required>{{ old('alamat') }}</textarea>
+                                            <textarea class="form-control" name="alamat" id="alamat" style="height: 250px">{{ old('alamat') }}</textarea>
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="image-upload">Foto Profil</label>

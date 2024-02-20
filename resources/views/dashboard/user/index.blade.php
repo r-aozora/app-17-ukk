@@ -108,15 +108,21 @@
                                                             <td>{{ $item->telepon }}</td>
                                                             <td>{{ ucfirst($item->role) }}</td>
                                                             <td>
-                                                                <a href="{{ route('user.show', $item->slug) }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Lihat Pengguna">
-                                                                    <i class="fas fa-eye"></i>
-                                                                </a>
-                                                                <a href="{{ route('user.edit', $item->slug) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" title="Edit Pengguna">
-                                                                    <i class="fas fa-pen"></i>
-                                                                </a>
-                                                                <a href="{{ route('user.destroy', $item->slug) }}" class="btn btn-sm btn-danger" data-confirm-delete="true" data-toggle="tooltip" title="Hapus Pengguna">
-                                                                    <i class="fas fa-trash" onclick="event.preventDefault(); this.closest('a').click();"></i>
-                                                                </a>
+                                                                @if ($item->slug === Auth::user()->slug)
+                                                                    <a href="{{ route('profile.edit') }}" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Edit Profil">
+                                                                        <i class="fas fa-user"></i>
+                                                                    </a>
+                                                                @else
+                                                                    <a href="{{ route('user.show', $item->slug) }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Lihat Pengguna">
+                                                                        <i class="fas fa-eye"></i>
+                                                                    </a>
+                                                                    <a href="{{ route('user.edit', $item->slug) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" title="Edit Pengguna">
+                                                                        <i class="fas fa-pen"></i>
+                                                                    </a>
+                                                                    <a href="{{ route('user.destroy', $item->slug) }}" class="btn btn-sm btn-danger" data-confirm-delete="true" data-toggle="tooltip" title="Hapus Pengguna">
+                                                                        <i class="fas fa-trash" onclick="event.preventDefault(); this.closest('a').click();"></i>
+                                                                    </a>
+                                                                @endif
                                                             </td>
                                                         </tr>
                                                     @endforeach

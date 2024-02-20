@@ -20,7 +20,7 @@ class BukuController extends Controller
             ->orderBy('judul')
             ->get();
 
-        confirmDelete('Hapus Buku', 'Anda yakin ingin menghapus buku?');
+        confirmDelete('Hapus Buku?', 'Anda yakin ingin menghapus buku?');
 
         return view('dashboard.buku.index')
             ->with([
@@ -72,12 +72,12 @@ class BukuController extends Controller
             'kategori_id' => $request->input('kategori'),
         ];
 
-        if ($request->hasFile('gambar')) {
+        if ($request->hasFile('sampul')) {
             $request->validate([
-                'gambar' => ['required', 'file', 'image', 'mimes:jpg,jpeg,png,svg,gif,webp'],
+                'sampul' => ['required', 'file', 'image', 'mimes:jpg,jpeg,png,svg,gif,webp'],
             ]);
 
-            $file = $request->file('image');
+            $file = $request->file('sampul');
             $gambar = $slug. '.' . $file->extension();
             $file->move(public_path('storage/buku'), $gambar);
             $buku['gambar'] = '/storage/buku/' . $gambar;
@@ -102,6 +102,8 @@ class BukuController extends Controller
     public function show(Buku $buku)
     {
         $buku->load(['kategori']);
+
+        confirmDelete('Hapus Buku?', 'Anda yakin ingin menghapus buku?');
 
         return view('dashboard.buku.show')
             ->with([
@@ -134,7 +136,7 @@ class BukuController extends Controller
     public function update(Request $request, Buku $buku)
     {
         $request->validate([
-            'judul' => ['required', 'string', 'max:255', 'unique:buku,judul'],
+            'judul' => ['required', 'string', 'max:255', 'unique:buku,judul,' . $buku->id],
             'penulis' => ['required', 'string', 'max:255'],
             'penerbit' => ['required', 'string', 'max:255'],
             'tahun' => ['required', 'integer'],
@@ -154,12 +156,12 @@ class BukuController extends Controller
             'kategori_id' => $request->input('kategori'),
         ];
 
-        if ($request->hasFile('gambar')) {
+        if ($request->hasFile('sampul')) {
             $request->validate([
-                'gambar' => ['required', 'file', 'image', 'mimes:jpg,jpeg,png,svg,gif,webp'],
+                'sampul' => ['required', 'file', 'image', 'mimes:jpg,jpeg,png,svg,gif,webp'],
             ]);
 
-            $file = $request->file('image');
+            $file = $request->file('sampul');
             $gambar = $slug. '.' . $file->extension();
 
             if ($buku->gambar !== '/images/buku.png') {

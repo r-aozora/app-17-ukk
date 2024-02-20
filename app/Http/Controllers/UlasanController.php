@@ -41,19 +41,42 @@ class UlasanController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'user' => ['required', 'integer'],
+            'buku' => ['required', 'integer', 'exists:buku,id'],
+            'rating' => ['required', 'integer', 'between:1,5'],
+            'ulasan' => ['required', 'string'],
+        ]);
+
+        try {
+            $ulasan = Ulasan::where('user_id', Auth::id())
+                ->where('buku_id', $request->input('buku'))
+                ->first();
+
+            if ($ulasan) {
+                $ulasan->update([
+                    'rating' => $request->input('rating'),
+                    'ulasan' => $request->input('ulasan'),
+                ]);
+            } else {
+                Ulasan::create([
+                    'user_id' => $request->input('user'),
+                    'buku_id' => $request->input('buku'),
+                    'rating' => $request->input('rating'),
+                    'ulasan' => $request->input('ulasan'),
+                ]);
+            }
+
+            toast('Ulasan berhasil diposting!', 'success');
+        } catch (\Throwable $th) {
+            toast('Ulasan gagal diposting.', 'error');
+        }
+
+        return redirect()->back();
     }
 
     /**
@@ -71,22 +94,6 @@ class UlasanController extends Controller
                 'active' => 'ulasan',
                 'ulasan' => $ulasan,
             ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Ulasan $ulasan)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Ulasan $ulasan)
-    {
-        //
     }
 
     /**

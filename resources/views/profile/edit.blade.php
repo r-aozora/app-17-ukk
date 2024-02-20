@@ -31,7 +31,7 @@
             <div class="row mt-sm-4">
                 <div class="col-12">
                     <div class="card">
-                        <form action="{{ route('profile.update') }}" method="POST" class="needs-validation" novalidate>
+                        <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
                             @csrf
                             @method('PATCH')
                             <div class="card-header">

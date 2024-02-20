@@ -46,7 +46,11 @@
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $item->ulasan }}</td>
-                                                    <td>{{ $item->rating }} <i class="fas fa-star"></i></td>
+                                                    <td>
+                                                        <span class="badge badge-{{ $item->rating > 3 ? 'success' : 'warning' }}">
+                                                            {{ $item->rating }} <i class="fas fa-star"></i>
+                                                        </span>
+                                                    </td>
                                                     <td>
                                                         <a href="{{ route('user.show', $item->user->slug) }}">{{ '@' . $item->user->name }}</a>
                                                     </td>

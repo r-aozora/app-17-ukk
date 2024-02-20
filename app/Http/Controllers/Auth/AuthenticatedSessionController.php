@@ -17,7 +17,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('login')
+        return view('auth.login')
             ->with(['title' => 'Login ke Dashboard']);
     }
 

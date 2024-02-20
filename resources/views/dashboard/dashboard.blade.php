@@ -10,7 +10,9 @@
                 <h1>{{ $title }}</h1>
             </div>
             <div class="section-body">
-                @include('dashboard.dashboard.sumbox')
+                @if (Auth::user()->role !== 'pembaca')
+                    @include('dashboard.dashboard.sumbox')
+                @endif
                 @include('dashboard.dashboard.peminjaman')
                 <div class="row">
                     @include('dashboard.dashboard.buku')

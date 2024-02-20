@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Exports\PeminjamanExport;
 use App\Http\Controllers\Controller;
 use App\Models\Buku;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KelolaPeminjamanController extends Controller
 {
@@ -78,5 +80,10 @@ class KelolaPeminjamanController extends Controller
         toast('Peminjaman berhasil diupdate!', 'success');
 
         return redirect()->back();
+    }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new PeminjamanExport($request->status), 'Data Peminjaman.xlsx');
     }
 }

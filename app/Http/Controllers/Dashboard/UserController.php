@@ -60,7 +60,7 @@ class UserController extends Controller
             'password' => ['required', Password::defaults(), 'confirmed'],
             'telepon' => ['required', 'string', 'max:255'],
             'role' => ['required', 'string'],
-            'alamat' => ['required', 'string',],
+            'alamat' => ['nullable', 'string',],
         ]);
 
         $user = [
@@ -74,12 +74,12 @@ class UserController extends Controller
             'alamat' => $request->input('alamat'),
         ];
 
-        if ($request->hasFile('gambar')) {
+        if ($request->hasFile('foto_profil')) {
             $request->validate([
-                'gambar' => ['required', 'file', 'image', 'mimes:jpg,jpeg,png,svg,gif,webp'],
+                'foto_profil' => ['required', 'file', 'image', 'mimes:jpg,jpeg,png,svg,gif,webp'],
             ]);
 
-            $file = $request->file('image');
+            $file = $request->file('foto_profil');
             $gambar = $slug. '.' . $file->extension();
             $file->move(public_path('storage/user'), $gambar);
             $user['foto'] = '/storage/user/' . $gambar;
@@ -92,7 +92,7 @@ class UserController extends Controller
 
             return redirect()->route('user.index');
         } catch (\Throwable $th) {
-            toast('Pengguna gagal ditambahkan!', 'error');
+            toast('Pengguna gagal ditambahkan.', 'error');
 
             return redirect()->back();
         }
@@ -103,6 +103,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        confirmDelete('Hapus Pengguna?', 'Anda yakin ingin menghapus pengguna?');
+
         return view('dashboard.user.show')
             ->with([
                 'title' => 'Detail Pengguna',
@@ -135,7 +137,7 @@ class UserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email,' . $user->id],
             'telepon' => ['required', 'string', 'max:255'],
             'role' => ['required', 'string'],
-            'alamat' => ['required', 'string',],
+            'alamat' => ['nullable', 'string',],
         ]);
 
         $updatedUser = [
@@ -148,12 +150,12 @@ class UserController extends Controller
             'alamat' => $request->input('alamat'),
         ];
 
-        if ($request->hasFile('gambar')) {
+        if ($request->hasFile('foto_profil')) {
             $request->validate([
-                'gambar' => ['required', 'file', 'image', 'mimes:jpg,jpeg,png,svg,gif,webp'],
+                'foto_profil' => ['required', 'file', 'image', 'mimes:jpg,jpeg,png,svg,gif,webp'],
             ]);
 
-            $file = $request->file('image');
+            $file = $request->file('foto_profil');
             $gambar = $slug. '.' . $file->extension();
 
             if ($user->foto !== '/images/user.png') {
@@ -171,7 +173,7 @@ class UserController extends Controller
 
             return redirect()->route('user.index');
         } catch (\Throwable $th) {
-            toast('Pengguna gagal diedit!', 'error');
+            toast('Pengguna gagal diedit.', 'error');
 
             return redirect()->back();
         }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Buku;
 use App\Models\Koleksi;
+use App\Models\Peminjaman;
+use App\Models\Ulasan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,10 +21,9 @@ class PustakaController extends Controller
                     ->orWhere('penulis', 'like', "%$search%")
                     ->orWhere('penerbit', 'like', "%$search%")
                     ->orWhereHas('kategori', function ($query) use ($search) {
-                        $query->where('kategori', 'like', "%$search%");
+                        $query->orWhere('kategori', 'like', "%$search%");
                     });
             })
-            ->whereColumn('pinjam', '<', 'stok')
             ->withAvg('ulasan', 'rating')
             ->orderByDesc('pinjam')
             ->get();
@@ -46,7 +47,15 @@ class PustakaController extends Controller
             ->where('buku_id', $buku->id)
             ->exists();
 
-        $pinjam = false;
+        $pinjam = Peminjaman::where('user_id', Auth::id())
+            ->whereHas('detail', function ($query) use ($buku) {
+                $query->where('buku_id', $buku->id);
+            })
+            ->exists();
+
+        $ulasan = Ulasan::where('user_id', Auth::id())
+            ->where('buku_id', $buku->id)
+            ->first();
 
         return view('dashboard.pustaka.show')
             ->with([
@@ -55,6 +64,7 @@ class PustakaController extends Controller
                 'pustaka' => $pustaka,
                 'koleksi' => $koleksi,
                 'pinjam' => $pinjam,
+                'ulasan' => $ulasan,
             ]);
     }
 }

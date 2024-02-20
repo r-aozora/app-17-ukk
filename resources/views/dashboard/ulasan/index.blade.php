@@ -45,16 +45,20 @@
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $item->ulasan }}</td>
-                                                    <td>{{ $item->rating }} <i class="fas fa-star"></i></td>
+                                                    <td>
+                                                        <span class="badge badge-{{ $item->rating > 3 ? 'success' : 'warning' }}">
+                                                            {{ $item->rating }} <i class="fas fa-star"></i>
+                                                        </span>
+                                                    </td>
                                                     <td>
                                                         <a href="{{ route('pustaka.show', $item->buku->slug) }}">{{ $item->buku->judul }}</a>
                                                     </td>
                                                     <td>{{ $item->created_at->format('j-n-Y') }}</td>
                                                     <td>
-                                                        <a href="#" class="btn btn-sm btn-info" data-toggle="tooltip" title="Lihat Ulasan">
+                                                        <button class="btn btn-sm btn-info btn-show" data-id="{{ $item->id }}" data-toggle="tooltip" title="Lihat Ulasan">
                                                             <i class="fas fa-eye"></i>
-                                                        </a>
-                                                        <a href="#" class="btn btn-sm btn-danger" data-confirm-delete="true" data-toggle="tooltip" title="Hapus Ulasan">
+                                                        </button>
+                                                        <a href="{{ route('ulasan.destroy', $item->id) }}" class="btn btn-sm btn-danger" data-confirm-delete="true" data-toggle="tooltip" title="Hapus Ulasan">
                                                             <i class="fas fa-trash" onclick="event.preventDefault(); this.closest('a').click();"></i>
                                                         </a>
                                                     </td>
@@ -71,6 +75,7 @@
             </div>
         </section>
     </div>
+    @include('dashboard.ulasan.show')
 @endsection
 
 @section('script')
@@ -81,4 +86,10 @@
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('assets/js/page/modules-datatables.js') }}"></script>
+    <script>
+        $('.btn-show').click(function() {
+            let id = $(this).data('id');
+            $('#show-ulasan-' + id).modal('show');
+        });
+    </script>
 @endsection

@@ -46,14 +46,20 @@
                                     <div class="article-category">
                                         <a href="#">{{ $item->kategori->kategori }}</a>
                                         <div class="bullet"></div>
-                                        <a href="#">{{ $item->stok - $item->pinjam }}</a>
+                                        <a href="#">{{ $item->stok - $item->pinjam }} Tersisa</a>
                                         <div class="bullet"></div>
                                         <a href="#">{{ number_format($item->ulasan_avg_rating, 1) }}<i class="fas fa-star"></i></a>
                                     </div>
                                     <div class="article-title">
                                         <h2><a href="{{ route('pustaka.show', $item->slug) }}">{{ $item->judul }}</a></h2>
                                     </div>
-                                    <p>{{ $item->deskripsi }}</p>
+                                    <p>
+                                        @if (strlen($item->deskripsi) > 100)
+                                            {{ substr($item->deskripsi, 0, 100) }}...
+                                        @else
+                                            {{ $item->deskripsi }}
+                                        @endif
+                                    </p>
                                     <div class="article-user">
                                         <div class="article-user-details">
                                             <div class="user-detail-name"><a href="#">{{ $item->penulis }}</a></div>

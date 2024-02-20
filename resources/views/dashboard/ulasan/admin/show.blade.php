@@ -57,7 +57,7 @@
                                         <div class="section-title mt-0">Rating</div>
                                         <div class="form-group">
                                             <h3>
-                                                <span class="badge badge-{{ $ulasan->rating > 3 ? 'success' : 'danger' }}">
+                                                <span class="badge badge-{{ $ulasan->rating > 3 ? 'success' : 'warning' }}">
                                                     {{ $ulasan->rating }} <i class="fas fa-star"></i>
                                                 </span>
                                             </h3>

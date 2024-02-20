@@ -60,7 +60,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                toast('Login Gagal', 'error'),
+                toast('Login Gagal.', 'error'),
             ]);
         }
 
