@@ -61,13 +61,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Kategori::insert([
-            [
-                'kategori' => 'Manga',
-            ], [
-                'kategori' => 'Novel',
-            ], [
-                'kategori' => 'Light Novel',
-            ]
+            ['kategori' => 'Manga'],
+            ['kategori' => 'Novel',],
+            ['kategori' => 'Light Novel'],
         ]);
 
         Buku::insert([
@@ -120,6 +116,16 @@ class DatabaseSeeder extends Seeder
                 'deskripsi' => 'As Kiyotaka Ayanokouji and his classmates begin their second-year life, changes are seen everywhere throughout Tokyo Metropolitan Advanced Nurturing High School. With the third-years having graduated and incoming first-years entering the school, alliances are well underway. Additionally, now that Miyabi Nagumo is the student council president, the promise of turning the school into a meritocracy may become a reality. Meanwhile, conflicts between classes continue to build as the class point totals draw close. With another special exam looming ahead, will Ayanokouji remain in the shadows, or will he finally enter the spotlight and help his class rise to the illustrious Class A?',
                 'stok' => 10,
                 'kategori_id' => 3,
+                'gambar' => '/images/buku/' . $slug . '.jpg',
+            ], [
+                'judul' => $judul = 'Another',
+                'slug' => $slug = Str::slug($judul),
+                'penulis' => 'Asatsuji Yukito',
+                'penerbit' => 'None',
+                'tahun' => '2009',
+                'deskripsi' => 'In the spring of 1998, 15-year-old Kouichi Sakakibara has just moved to the town of Yomiyama, where he is set to attend the local middle school Yomiyama North. However, when a past injury resurfaces, he is placed in hospital, leading him to miss the first week of school. Though he recovers quickly, before leaving he meets Mei Misaki, a strange, eye-patched girl whose cryptic mannerisms spark a subtle interest within the boy. At Yomiyama North, Kouichi is placed in Class 3-3. However, beneath the innocent atmosphere, he finds the class behavior odd: everyone seems to be on edge and watchful of Kouchi\'s actions. Moreover, Mei is a student in the class, yet both classmates and teachers don\'t show any regard to her, as if she is simply not there. Though more oddities arise and more questions spring forth, no one is willing to give Kouichi any answers. With little choice to ease his growing curiosity, Kouichi starts to pursue Mei for help, against both the class\'s and her own warnings.',
+                'stok' => 10,
+                'kategori_id' => 1,
                 'gambar' => '/images/buku/' . $slug . '.jpg',
             ]
         ]);

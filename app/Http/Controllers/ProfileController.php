@@ -34,7 +34,7 @@ class ProfileController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.Auth::user()->id],
             'username' => ['required', 'string', 'max:255', 'unique:users,username,'.Auth::user()->id],
             'telepon' => ['required', 'string', 'max:255'],
-            'alamat' => ['required', 'string', 'max:255'],
+            'alamat' => ['nullable', 'string', 'max:255'],
         ]);
 
         $user = [
@@ -60,7 +60,7 @@ class ProfileController extends Controller
         try {
             User::where('id', $request->user()->id)->update($user);
 
-            toast('Profil berhasil diperbaru!i', 'success');
+            toast('Profil berhasil diperbarui!', 'success');
         } catch (\Throwable $th) {
             toast('Profil gagal diperbarui.', 'success');
         }

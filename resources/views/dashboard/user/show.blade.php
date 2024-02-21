@@ -57,7 +57,7 @@
                                 <div class="row">
                                     <div class="form-group col-lg-6">
                                         <label for="alamat">Alamat</label>
-                                        <textarea class="form-control" id="alamat" style="height: 250px" disabled>{{ $user->alamat }}</textarea>
+                                        <textarea class="form-control" id="alamat" style="height: 250px" disabled>{{ $user->alamat ?? '-' }}</textarea>
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label>Foto Profil</label>

@@ -68,9 +68,6 @@
                                                     <span class="input-group-text">Stok saat ini</span>
                                                     <span class="input-group-text">{{ $buku->stok - $buku->pinjam }}</span>
                                                 </div>
-                                                <small id="stok-help" class="form-text text-muted">
-                                                    Input stok baru akan otomatis dikurangi dengan jumlah buku dipinjam.
-                                                </small>
                                             </div>
                                         </div>
                                         <div class="form-group col-lg-6">

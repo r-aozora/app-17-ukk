@@ -15,7 +15,7 @@ class LoginRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        if (filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+        if (filter_var($this->input('user'), FILTER_VALIDATE_EMAIL)) {
             $this->user = 'email';
         } else {
             $this->user = 'username';
